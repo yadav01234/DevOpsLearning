@@ -41,5 +41,24 @@ git log : display the entire commit history using the default format for customi
 ### Git Diff
 git diff: Show unstaged changes between your index and working directory.
 
+## Git Commands to Undo Change
+
+### Git Revert
+git revert : Creates a new commit that undoes all of the changes made in [commit], then apply it to the current branch.
+
+``` git revert <commit>```
+
+### Git Reset
+git reset : Remove the [file] from the staging area but leave the working directory unchanged. this unstage a file without overwriting any changes.
+
+``` git reset <file> ```
+
+### Git Clean
+git clean -n: Shows which files would be removed from working directory.
+Use the -f flag in place of the -n flag to execute the clean.
+
+``` git clean -n ```
+
+``` git clean -f ```
 
 
