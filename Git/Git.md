@@ -1,72 +1,38 @@
-# Git
+**Solution**:
 
-## Git Commands
+```javascript
+function maxArea(height) {
+    let left = 0;
+    let right = height.length - 1;
+    let maxWater = 0;
 
-### Git Init
- ___git init___ : this command creates a empty repo and creates a .git folder with all the necessary information.
+    while (left < right) {
+        let minHeight = Math.min(height[left], height[right]);
+        let width = right - left;
+        maxWater = Math.max(maxWater, minHeight * width);
 
-### Git Clone
- ___git clone___ : if you want clone a repository from remote place use this command.
-    
-`git clone url`
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
 
-### Git Add
-___git add___ : git add command adds the files that you need to the staging area. 
-if you want to add all the file you need to specify a period after git add.
-    
-``` git add .```
+    return maxWater;
+}
+```
 
-### Git Commit
-___git commit___ : git commit command helps you to commit the files in the staging area. 
-this should be done after the git add command.
+---
 
-``` git commit -m 'message' ```
+**Problem Explanation**:
 
-### Git Push
-___git push branch-name orign___ : this pushes the remote branch to the origin.
+Imagine `n` vertical lines standing on the x-axis. Each line's height is given by the `height` array. The goal is to find two lines such that the area they form with the x-axis (as the base) is maximized. This area will be the maximum amount of water the container can hold. The challenge is to find the pair of lines that maximize this area.
 
-``` git push <branch> <origin> ```
+**Solution Explanation**:
 
-### Git Checkout 
-___git checkout___ : checks out into a new branch or existing branch.
+1. **Two Pointers**: We begin with two pointers, `left` and `right`, initialized at the beginning and end of the `height` array.
+2. **Calculate Area**: At each step, calculate the area using the shorter line's height (either the one pointed to by `left` or `right`) and the distance between the two pointers (which will be the width of the container). Update `maxWater` if the calculated area is greater than the current `maxWater`.
+3. **Move Pointers**: Move the pointer that is pointing to the shorter line. The rationale behind this is simple: if we move the taller line, the height for our container doesn't increase (it's determined by the shorter line), but the width will decrease (since we are moving the pointers closer). Thus, moving the taller line will not help in maximizing the area. The only option left is to move the shorter line and hope for a taller line in its direction.
+4. **Return**: Continue the process until the `left` pointer is less than the `right` pointer. After the loop, `maxWater` will have the maximum area (or the maximum amount of water the container can hold).
 
-```git checkout -b feature/branch```
-
-### Git Status
-___git status___ : lists which files are staged , unstaged and untracked.
-
-### Git Log
-___git log___ : display the entire commit history using the default format for customization see additional options.
-
-### Git Diff
-___git diff___: Show unstaged changes between your index and working directory.
-
-## Git Commands to Undo Change
-
-### Git Revert
-___git revert___ : Creates a new commit that undoes all of the changes made in [commit], then apply it to the current branch.
-
-``` git revert <commit>```
-
-### Git Reset
-___git reset___ : Remove the [file] from the staging area but leave the working directory unchanged. this unstage a file without overwriting any changes.
-
-``` git reset <file> ```
-
-### Git Clean
-___git clean -n___: Shows which files would be removed from working directory.
-Use the -f flag in place of the -n flag to execute the clean.
-
-``` git clean -n ```
-
-``` git clean -f ```
-
-## Git Rewrite History Commands
-___git commit ---amend___ : Replace the last commit with the staged changes and last commit combined. Use with nothing staged to edit the last commit's message.
-
-___git rebase <base>___ : Rebase the current branch onto <base>, <base> can be a commit Id, branch name, a tag, or a relative reference to HEAD
-
-___git reflog___ : show a log of changes to the local repository's HEAD.
-Add --relative-date flag to show date info or ---all to show all refs. 
-
-
+This solution is efficient and runs in linear time since we process each line only once.
