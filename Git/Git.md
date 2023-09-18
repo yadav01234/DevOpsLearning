@@ -1,4 +1,8 @@
-```
+## maxArea Function
+
+This function calculates the maximum area of water that can be contained between two pillars, given an array of pillar heights.
+
+```javascript
 function maxArea(height) {
     //set the start and end points.
     let left = 0;
@@ -24,4 +28,3 @@ function maxArea(height) {
     // return the result back.
     return maxWater;
 }
-```
